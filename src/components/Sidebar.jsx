@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import authService from '../services/authService';
 
 const Sidebar = ({ isOpen, onClose }) => {
   const location = useLocation();
   const [isMobile, setIsMobile] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false); // État pour admin
 
   useEffect(() => {
     const checkMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkMobile();
     window.addEventListener('resize', checkMobile);
-    
+
+    //  Vérifier si l'utilisateur est admin
+    setIsAdmin(authService.isAdmin());
+
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
-  
+
   const menuItems = [
     { path: '/', label: 'Tableau de bord', icon: '📊' },
     { path: '/transactions', label: 'Transactions', icon: '💳' },
@@ -51,6 +56,18 @@ const Sidebar = ({ isOpen, onClose }) => {
               {isOpen && <span className="nav-label">{item.label}</span>}
             </Link>
           ))}
+
+          {/*  NOUVEAU : Lien pour les admins - Journal des transactions */}
+          {isAdmin && (
+            <Link
+              to="/admin/logs"
+              className={`nav-item ${location.pathname === '/admin/logs' ? 'active' : ''}`}
+              onClick={() => isMobile && onClose()}
+            >
+              <span className="nav-icon">📋</span>
+              {isOpen && <span className="nav-label">Journal des transactions</span>}
+            </Link>
+          )}
         </nav>
 
         <div className="sidebar-footer">
