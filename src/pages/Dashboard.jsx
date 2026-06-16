@@ -4,7 +4,7 @@ import authService from '../services/authService';
 import Pagination from '../components/Pagination';
 
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://sms-banking-pjcp.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://sms-orabank-backend.onrender.com';
 
 // Normalisation robuste des types
 const normalizeType = (type) => {

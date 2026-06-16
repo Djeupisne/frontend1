@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import authService from '../services/authService';
 
-const API_URL = import.meta.env.VITE_API_URL || 'https://sms-banking-pjcp.onrender.com';
+const API_URL = import.meta.env.VITE_API_URL || 'https://sms-orabank-backend.onrender.com';
 
 const Accounts = () => {
   const [accounts, setAccounts] = useState([]);
